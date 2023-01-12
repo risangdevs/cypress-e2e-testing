@@ -4,4 +4,6 @@ export const stepOneRegInput = (sender, benef, benefEmail) => {
   cy.get("#react-select-receiverAccountNumber-input").click();
   cy.contains(benef).click();
   cy.get("input[name=receiverAccountEmail]").type(benefEmail);
+  cy.wait(5000);
+  cy.contains("Next").click({ force: true });
 };
