@@ -6,4 +6,7 @@ module.exports = defineConfig({
       // implement node event listeners here
     },
   },
+  env: {
+    dev: "http://gym-master.apps.ocp-dev.bri.co.id/api/",
+  },
 });

@@ -5,10 +5,11 @@ import {
   login,
   openEFTModal,
   selectTransferMethod,
+  stepOneRegInputTemplate,
 } from "./cases";
 const { dev } = Cypress.env();
 describe("Create Task", () => {
-  it("Online Transfer Registered Input", () => {
+  it("Online Transfer Registered Input Use Template", () => {
     login("CU_TESLAINC_M", "Nsel@1234");
 
     cy.wait(5000);
@@ -19,15 +20,12 @@ describe("Create Task", () => {
 
     selectTransferMethod("single", "Online Transfer");
 
-    cy.wait(5000);
+    cy.intercept(dev+'workflow/*').as('getWorkflow')
+    cy.wait("@getWorkflow");
 
-    stepOneRegInput(
-      "DEDY YUSUF SILABAN - 037901005847535",
-      "ZAKI AHMAD RAMDANI - 001001001234",
-      "example@test.com"
-    );
+    stepOneRegInputTemplate("Recurring Daily");
 
-    stepTwo("100000", "first", "~!@#$%^&*()_+{}:<>?");
+    stepTwo();
 
     // cy.wait(1000);
 
