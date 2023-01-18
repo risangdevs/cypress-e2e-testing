@@ -8,5 +8,6 @@ module.exports = defineConfig({
   },
   env: {
     dev: "http://gym-master.apps.ocp-dev.bri.co.id/api/",
+    prestage: "https://addons.cms.dev.bri.co.id/api/",
   },
 });

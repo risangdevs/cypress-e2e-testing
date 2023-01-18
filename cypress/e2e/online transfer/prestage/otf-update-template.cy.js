@@ -1,7 +1,7 @@
 import { login, openEFTModal, selectTransferMethod } from "./cases";
-import { saveTemplate } from "./cases/use template";
+import { saveTemplate, updateTemplate } from "./cases/use template";
 const { dev } = Cypress.env();
-describe("Save Template", () => {
+describe("Update Template", () => {
   it("Online Transfer Registered Input Use Template", () => {
     login("CU_TESLAINC_M", "Nsel@1234");
 
@@ -16,12 +16,7 @@ describe("Save Template", () => {
     cy.intercept(dev + "workflow/*").as("getWorkflow");
     cy.wait("@getWorkflow");
 
-    saveTemplate(
-      "DEDY YUSUF SILABAN - 037901005847535",
-      "ZAKI AHMAD RAMDANI - 001001001234",
-      "example@test.com",
-      "10101",
-      "first",
+    updateTemplate(
       "Automated Template"
     );
   });
