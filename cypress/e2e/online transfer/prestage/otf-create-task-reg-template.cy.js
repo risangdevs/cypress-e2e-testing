@@ -7,12 +7,16 @@ import {
   selectTransferMethod,
   stepOneRegInputTemplate,
 } from "./cases";
-const { dev } = Cypress.env();
-describe("Create Task", () => {
+import { exception } from "./utils/exception";
+const { prestage } = Cypress.env();
+describe("Create Task From Template", () => {
   it("Online Transfer Registered Input Use Template", () => {
+    exception()
     login("CU_TESLAINC_M", "Nsel@1234");
 
     // cy.wait(5000);
+    cy.intercept(prestage+'menu/me').as('menu')
+    cy.intercept(prestage+'system/key/*').as('params')
 
     openEFTModal();
 
@@ -20,10 +24,10 @@ describe("Create Task", () => {
 
     selectTransferMethod("single", "Online Transfer");
 
-    cy.intercept(dev+'workflow/*').as('getWorkflow')
+    cy.intercept(prestage+'workflow/*').as('getWorkflow')
     cy.wait("@getWorkflow");
 
-    stepOneRegInputTemplate("Recurring Daily");
+    stepOneRegInputTemplate("Automated Template");
 
     stepTwo();
 

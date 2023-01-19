@@ -1,23 +1,22 @@
 import { login, openEFTModal, selectTransferMethod } from "./cases";
 import { saveTemplate, updateTemplate } from "./cases/use template";
-const { dev } = Cypress.env();
+import { exception } from "./utils/exception";
+const { prestage } = Cypress.env();
 describe("Update Template", () => {
   it("Online Transfer Registered Input Use Template", () => {
+    exception()
     login("CU_TESLAINC_M", "Nsel@1234");
 
-    cy.wait(5000);
+    cy.intercept(prestage + "menu/me").as("menu");
+    cy.intercept(prestage + "system/key/*").as("params");
 
     openEFTModal();
 
-    // cy.wait(5000);
-
     selectTransferMethod("single", "Online Transfer");
 
-    cy.intercept(dev + "workflow/*").as("getWorkflow");
+    cy.intercept(prestage + "workflow/*").as("getWorkflow");
     cy.wait("@getWorkflow");
 
-    updateTemplate(
-      "Automated Template"
-    );
+    updateTemplate("Automated Template");
   });
 });

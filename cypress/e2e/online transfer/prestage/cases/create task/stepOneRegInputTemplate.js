@@ -1,6 +1,6 @@
-const { dev } = Cypress.env();
+const { prestage } = Cypress.env();
 export const stepOneRegInputTemplate = (templateName) => {
-  cy.intercept(dev + "account/validate").as("validateBenef");
+  cy.intercept(prestage + "account/validate").as("validateBenef");
 
   cy.contains("Template Options").click();
   cy.contains("Use template").click();
